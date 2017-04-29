@@ -28,8 +28,6 @@ protected:
     void run();
     void newData_1(double w, double t);
         void newData_2(double w, double t);
-            void newData_3(double w, double t);
-                void newData_4(double w, double t);
 private slots:
     void readData();
     //void mouseWheel();

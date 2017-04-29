@@ -87,30 +87,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->widget_3->axisRect()->setRangeZoom(Qt::Horizontal);
     ui->widget_3->axisRect()->setRangeZoomFactor(1.5);
 
-    ui->widget_4->legend->setVisible(true);
-    //ui->widge->addGraph()->setName("AccelAng");
-    ui->widget_4->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
-    //ui->widget->axisRect()->setRangeZoom(Qt::Horizontal | Qt::Vertical);
-    ui->widget_4->axisRect()->setRangeZoom(Qt::Horizontal);
-    ui->widget_4->axisRect()->setRangeZoomFactor(1.5);
-
-    ui->widget_5->legend->setVisible(true);
-    //ui->widget->addGraph()->setName("AccelAng");
-    ui->widget_5->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
-    //ui->widget->axisRect()->setRangeZoom(Qt::Horizontal | Qt::Vertical);
-    ui->widget_5->axisRect()->setRangeZoom(Qt::Horizontal);
-    ui->widget_5->axisRect()->setRangeZoomFactor(1.5);
-
-    ui->widget_1->addGraph()->setName("AccelAngle");
-    ui->widget_2->addGraph()->setName("GyroAngle");
-    ui->widget_3->addGraph()->setName("CompFilterAngle");
-    ui->widget_4->addGraph()->setName("KalmanFilterAngle");
-    ui->widget_5->addGraph()->setName("AccelAngle");
-    ui->widget_5->addGraph()->setName("GyroAngle");
-    ui->widget_5->addGraph()->setName("CompFilterAngle");
-    ui->widget_5->addGraph()->setName("KalmanFilterAngle");
-    //ui->widget->addGraph()->setName("Displacement");
-    //ui->widget->graph(0)->setData(x, y);
+    ui->widget_1->addGraph()->setName("Raw");
+    ui->widget_2->addGraph()->setName("Filtered_Angle");
+    ui->widget_3->addGraph()->setName("Raw");
+    ui->widget_3->addGraph()->setName("Filtered_Angle");
 
     ui->widget_1->xAxis->setLabel("Time(s)->");
     ui->widget_1->yAxis->setLabel("Angle(°)");
@@ -118,20 +98,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->widget_2->yAxis->setLabel("Angle(°)");
     ui->widget_3->xAxis->setLabel("Time(s)->");
     ui->widget_3->yAxis->setLabel("Angle(°)");
-    ui->widget_4->xAxis->setLabel("Time(s)->");
-    ui->widget_4->yAxis->setLabel("Angle(°)");
-    ui->widget_5->xAxis->setLabel("Time(s)->");
-    ui->widget_5->yAxis->setLabel("Angle(°)");
 
     ui->widget_1->graph(0)->setPen(QPen(Qt::red));
     ui->widget_2->graph(0)->setPen(QPen(Qt::green));
-    ui->widget_3->graph(0)->setPen(QPen(Qt::blue));
-    ui->widget_4->graph(0)->setPen(QPen(Qt::black));
-    ui->widget_5->graph(0)->setPen(QPen(Qt::red));
-    ui->widget_5->graph(1)->setPen(QPen(Qt::green));
-    ui->widget_5->graph(2)->setPen(QPen(Qt::blue));
-    ui->widget_5->graph(3)->setPen(QPen(Qt::black));
-
+    ui->widget_3->graph(0)->setPen(QPen(Qt::red));
+    ui->widget_3->graph(1)->setPen(QPen(Qt::green));
     //ui->widget->graph(4)->setPen(QPen(Qt::cyan));
     ui->widget_1->xAxis->setRange(0,20);
     ui->widget_1->yAxis->setRange(20,-20);
@@ -139,15 +110,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->widget_2->yAxis->setRange(20,-20);
     ui->widget_3->xAxis->setRange(0,20);
     ui->widget_3->yAxis->setRange(20,-20);
-    ui->widget_4->xAxis->setRange(0,20);
-    ui->widget_4->yAxis->setRange(20,-20);
-    ui->widget_5->xAxis->setRange(0,20);
-    ui->widget_5->yAxis->setRange(20,-20);
-
-
-
-
-    //imufilter = new IMUfilter(0.015, 20);
 
 }
 
@@ -160,10 +122,6 @@ MainWindow::~MainWindow()
     ui->widget_2->saveJpg( "C:/Users/yikes/Desktop/graph2.jpg",  0, 0, 1.0, -1  );
     QFile file3("C:/Users/yikes/Desktop/graph3.jpg");
     ui->widget_3->saveJpg( "C:/Users/yikes/Desktop/graph3.jpg",  0, 0, 1.0, -1  );
-    QFile file4("C:/Users/yikes/Desktop/graph4.jpg");
-    ui->widget_4->saveJpg( "C:/Users/yikes/Desktop/graph4.jpg",  0, 0, 1.0, -1  );
-    QFile file5("C:/Users/yikes/Desktop/graph5.jpg");
-    ui->widget_5->saveJpg( "C:/Users/yikes/Desktop/graph5.jpg",  0, 0, 1.0, -1  );
 
     delete ui;
 }
@@ -171,34 +129,18 @@ MainWindow::~MainWindow()
 void MainWindow::newData_1(double w,double t)
 {
     ui->widget_1->graph(0)->addData(t,w);
-    ui->widget_5->graph(0)->addData(t,w);
+    ui->widget_3->graph(0)->addData(t,w);
     ui->widget_1->replot();
-    ui->widget_5->replot();
-
+    ui->widget_3->replot();
 }
+
 void MainWindow::newData_2(double w,double t)
 {
     ui->widget_2->graph(0)->addData(t,w);
-    ui->widget_5->graph(1)->addData(t,w);
+    ui->widget_3->graph(1)->addData(t,w);
     ui->widget_2->replot();
-    ui->widget_5->replot();
-}
-void MainWindow::newData_3(double w,double t)
-{
-    ui->widget_3->graph(0)->addData(t,w);
-    ui->widget_5->graph(2)->addData(t,w);
     ui->widget_3->replot();
-    ui->widget_5->replot();
-
 }
-void MainWindow::newData_4(double w,double t)
-{
-    ui->widget_4->graph(0)->addData(t,w);
-    ui->widget_5->graph(3)->addData(t,w);
-    ui->widget_4->replot();
-    ui->widget_5->replot();
-}
-
 
 
 double zoff,xoff;volatile int ch=0;int aa=0;
@@ -233,8 +175,6 @@ void MainWindow::readData()
     //if(data[0]!='a')goto x;
     i = data.indexOf(',');
     j = data.indexOf(',',i+1);
-    k = data.indexOf(',',j+1);
-    l = data.indexOf(',',k+1);
     //n = data.indexOf(',',l+1);
     //o = data.indexOf(',',n+1);
     //if(k==-1)goto x;
@@ -251,8 +191,6 @@ void MainWindow::readData()
     xs=data.mid(0,i-1).toDouble();
     xa=data.mid(i+1,j-i-1).toDouble();
     //QThread::currentThread()->sleep(1);
-    ya=data.mid(j+1,k-j-1).toDouble();
-    za=data.mid(k+1,l-k-1).toDouble();
     //ys=data.mid(l+1,n-l-1).toDouble();
     //g= data.mid(n+1,o-n-1).toDouble();
     //double pitch = atan(-xs / sqrt(xa * xa + ya * ya)) * 57.2958;
@@ -291,7 +229,7 @@ void MainWindow::readData()
     //double angle = atan2(-za,xa);
     //qDebug()<<i<<j<<k<<l<<m;
 
-    qDebug()<<xs<<xa<<ya<<za<<f.elapsed()<<endl;
+    qDebug()<<xs<<xa<<f.elapsed()<<endl;
 
     //if(f.elapsed()>40000)
 
@@ -299,8 +237,6 @@ void MainWindow::readData()
     t=f.elapsed();
     newData_1(xs,t/1000.0);
     newData_2(xa,t/1000.0);
-    newData_3(ya,t/1000.0);
-    newData_4(za,t/1000.0);
     if(serial->bytesAvailable()>25) goto x;
     else ch=0;
         }
